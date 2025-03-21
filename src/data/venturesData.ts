@@ -7,7 +7,6 @@ interface Venture {
   imageUrl: string;
   status: 'Ongoing' | 'Completed' | 'Early Stage';
   year: number;
-  websiteUrl?: string; 
 }
 
 export const ventures: Venture[] = [
