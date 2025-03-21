@@ -1,4 +1,3 @@
-
 interface Venture {
   id: number;
   name: string;
@@ -6,8 +5,9 @@ interface Venture {
   role: string;
   technologies: string[];
   imageUrl: string;
+  status: 'Ongoing' | 'Completed' | 'Early Stage';
   year: number;
-  websiteUrl?: string;
+  websiteUrl?: string; 
 }
 
 export const ventures: Venture[] = [
