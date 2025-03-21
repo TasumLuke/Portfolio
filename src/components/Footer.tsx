@@ -44,11 +44,11 @@ const Footer: React.FC = () => {
                 Exploring the fascinating intersection of biomedical engineering and medicine as a student. Learning, creating, and growing to make healthcare better for all.
               </p>
               <div className="flex space-x-4">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.linkedin.com/in/luke-rimmo-loyi-lego-98a26b249/" target="_blank" rel="noopener noreferrer"
                    className="text-muted-foreground hover:text-primary transition-colors">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                <a href="https://github.com/TasumLuke/" target="_blank" rel="noopener noreferrer"
                    className="text-muted-foreground hover:text-primary transition-colors">
                   <Github className="w-5 h-5" />
                 </a>
