@@ -1,4 +1,3 @@
-
 interface Venture {
   id: number;
   name: string;
