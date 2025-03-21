@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <HeartPulse className="w-6 h-6 text-primary" />
-                <h3 className="text-xl font-bold tracking-tight">BioMedHub</h3>
+                <h3 className="text-xl font-bold tracking-tight">Rimmo Lego</h3>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                 Exploring the fascinating intersection of biomedical engineering and medicine as a student. Learning, creating, and growing to make healthcare better for all.
