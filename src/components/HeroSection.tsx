@@ -103,7 +103,7 @@ const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          I am a Biomedical Engineering Major, and a Pre-medical student exploring the intersection of engineering and medicine, hoping to develop innovative healthcare solutions and improve patient outcomes. My goal is to work towards improving personalised healthcare and make it as accessible as possible one day!
+          I am a Biomedical Engineering Major, and a Pre-medical student exploring the intersection of engineering and medicine, hoping to develop innovative healthcare solutions and improve patient outcomes. My goal is to work towards improving personalised healthcare and make it easily accessible to all strata of society
         </motion.p>
           
         <motion.div
