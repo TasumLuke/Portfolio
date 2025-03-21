@@ -1,41 +1,337 @@
 
-interface Venture {
-  id: number;
-  name: string;
-  description: string;
-  role: string;
-  technologies: string[];
-  imageUrl: string;
-  year: number;
-}
+import React, { useState } from 'react';
+import { ArrowLeft, HeartPulse } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import AnimatedSection from '@/components/AnimatedSection';
+import VentureCard from '@/components/VentureCard';
+import PageTransition from '@/components/PageTransition';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { ventures } from '@/data/venturesData';
 
-export const ventures: Venture[] = [
-  {
-    id: 1,
-    name: "Tani Language Foundation",
-    description: "Founder, the Tani Language Foundation, which is a non profit working on preserving the Tani Language and Culture. Tani is one of the most widely spoken languages in the states of Arunachal and Assam, in India and is also one of the smallest minority languages of China. This organization was featured in India's National Newspaper: The Hindustan Times.",
-    role: "Founder",
-    technologies: ["Linguistics", "Research", "Cultural Preservation"],
-    imageUrl: "https://static.wixstatic.com/media/f961f7_b1713a0d871c420cbaf091ac1dc9fd01~mv2.jpeg/v1/fill/w_850,h_729,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/f961f7_b1713a0d871c420cbaf091ac1dc9fd01~mv2.jpeg",
-    year: 2024
-  },
-  {
-    id: 2,
-    name: "Northeastern Centre for High School Research",
-    description: "Founder, NEHCR (Northeastern Centre for High School Research): A non-profit organization dedicated to mentoring high school students, particularly those from underprivileged backgrounds in Northeast India and the rest of the country. NEHCR provides free guidance in research and critical thinking, empowering students with the skills and knowledge needed to pursue innovative problem-solving.",
-    role: "Founder",
-    technologies: ["Mentorship", "Research"],
-    imageUrl: "https://mountainecho.in/wp-content/uploads/2024/03/NECHR-Cultivating-research-pioneers-in-Northeast-Indias-High-Schools-1024x678.webp",
-    year: 2023
-  },
-  {
-    id: 3,
-    name: "Ngok Siang",
-    description: "Ngok Siang is a youth-led campaign that was recognized as a runner-up in the Millennium Oceans Prize. Led by Luke Rimmo and Marina Tatin, the project focuses on combating the increasing human interference in the Siang River ecosystem. It works closely with local fishermen, volunteers, and students to promote sustainable fishing practices—such as using nets that protect dolphins and avoiding fishing during critical breeding seasons—while advocating for a balanced approach to development and environmental preservation. This initiative not only raises awareness about the ecological importance of the river but also fosters community engagement in marine conservation efforts.",
-    role: "Founder",
-    technologies: ["River Conservation", "Research"],
-    imageUrl: "https://static.wixstatic.com/media/f1ea87_573e1d10e76949548959cb53e0f5f26d~mv2.png/v1/fill/w_236,h_233,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f1ea87_573e1d10e76949548959cb53e0f5f26d~mv2.png",
-    year: 2024
-  },
+type StatusType = 'All' | 'Ongoing' | 'Completed' | 'Early Stage';
+
+const Ventures: React.FC = () => {
+  const [status, setStatus] = useState<StatusType>('All');
   
-];
+  // Filter ventures by status
+  const filteredVentures = ventures.filter(venture => {
+    if (status === 'All') return true;
+    return venture.status === status;
+  });
+  
+  // Sort ventures by year (newest first)
+  const sortedVentures = [...filteredVentures].sort((a, b) => b.year - a.year);
+
+  return (
+    <PageTransition>
+      <Navbar />
+      <main className="min-h-screen pt-24 pb-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <AnimatedSection className="mb-12">
+            <Button 
+              variant="ghost" 
+              className="mb-6 -ml-3"
+              asChild
+            >
+              <Link to="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Home
+              </Link>
+            </Button>
+            
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+              Projects & Ventures
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl">
+              Some of the Initiatives and Work I have done.
+            </p>
+          </AnimatedSection>
+          
+          {/* Filters */}
+          <AnimatedSection className="mb-12">
+            <div className="bg-secondary/30 p-5 rounded-xl">
+              <h3 className="text-lg font-medium mb-4">Filter by Status</h3>
+              <RadioGroup 
+                value={status} 
+                onValueChange={(value) => setStatus(value as StatusType)}
+                className="flex flex-wrap gap-4"
+              >
+                <div className="flex items-center space-x-2 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full">
+                  <RadioGroupItem value="All" id="all" />
+                  <Label htmlFor="all" className="cursor-pointer">All Projects</Label>
+                </div>
+                
+              </RadioGroup>
+            </div>
+          </AnimatedSection>
+          
+          {/* Ventures Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedVentures.map((venture, index) => (
+              <AnimatedSection key={venture.id} delay={index * 0.05}>
+                <VentureCard {...venture} />
+              </AnimatedSection>
+            ))}
+          </div>
+          
+          {/* Empty state */}
+          {sortedVentures.length === 0 && (
+            <div className="text-center py-10">
+              <p className="text-muted-foreground">No projects match the selected filter.</p>
+            </div>
+          )}
+          
+          {/* Additional information */}
+          <AnimatedSection className="mt-16 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 border border-border">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="md:w-1/4 flex justify-center">
+                <HeartPulse className="h-24 w-24 text-primary/70" />
+              </div>
+              <div className="md:w-3/4">
+                <h3 className="text-2xl font-bold mb-3">Looking for a Partnership?</h3>
+                <p className="text-muted-foreground mb-5">
+                  I'm always looking for opportunities to collaborate on interesting projects. I'd love to discuss potential collaborations.
+                </p>
+                <Link href="/contact" passHref>
+                <Button className="bg-primary hover:bg-primary/90 text-white" >
+                  Contact Me
+                </Button></Link>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </main>
+      <Footer />
+    </PageTransition>
+  );
+};
+
+export default Ventures;
+import React, { useState } from 'react';
+import { ArrowLeft, HeartPulse } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import AnimatedSection from '@/components/AnimatedSection';
+import VentureCard from '@/components/VentureCard';
+import PageTransition from '@/components/PageTransition';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { ventures } from '@/data/venturesData';
+
+type StatusType = 'All' | 'Ongoing' | 'Completed' | 'Early Stage';
+
+const Ventures: React.FC = () => {
+  const [status, setStatus] = useState<StatusType>('All');
+  
+  // Filter ventures by status
+  const filteredVentures = ventures.filter(venture => {
+    if (status === 'All') return true;
+    return venture.status === status;
+  });
+  
+  // Sort ventures by year (newest first)
+  const sortedVentures = [...filteredVentures].sort((a, b) => b.year - a.year);
+
+  return (
+    <PageTransition>
+      <Navbar />
+      <main className="min-h-screen pt-24 pb-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <AnimatedSection className="mb-12">
+            <Button 
+              variant="ghost" 
+              className="mb-6 -ml-3"
+              asChild
+            >
+              <Link to="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Home
+              </Link>
+            </Button>
+            
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+              Projects & Ventures
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl">
+              Some of the Initiatives and Work I have done.
+            </p>
+          </AnimatedSection>
+          
+          {/* Filters */}
+          <AnimatedSection className="mb-12">
+            <div className="bg-secondary/30 p-5 rounded-xl">
+              <h3 className="text-lg font-medium mb-4">Filter by Status</h3>
+              <RadioGroup 
+                value={status} 
+                onValueChange={(value) => setStatus(value as StatusType)}
+                className="flex flex-wrap gap-4"
+              >
+                <div className="flex items-center space-x-2 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full">
+                  <RadioGroupItem value="All" id="all" />
+                  <Label htmlFor="all" className="cursor-pointer">All Projects</Label>
+                </div>
+                
+              </RadioGroup>
+            </div>
+          </AnimatedSection>
+          
+          {/* Ventures Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedVentures.map((venture, index) => (
+              <AnimatedSection key={venture.id} delay={index * 0.05}>
+                <VentureCard {...venture} />
+              </AnimatedSection>
+            ))}
+          </div>
+          
+          {/* Empty state */}
+          {sortedVentures.length === 0 && (
+            <div className="text-center py-10">
+              <p className="text-muted-foreground">No projects match the selected filter.</p>
+            </div>
+          )}
+          
+          {/* Additional information */}
+          <AnimatedSection className="mt-16 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 border border-border">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="md:w-1/4 flex justify-center">
+                <HeartPulse className="h-24 w-24 text-primary/70" />
+              </div>
+              <div className="md:w-3/4">
+                <h3 className="text-2xl font-bold mb-3">Looking for a Partnership?</h3>
+                <p className="text-muted-foreground mb-5">
+                  I'm always looking for opportunities to collaborate on interesting projects. I'd love to discuss potential collaborations.
+                </p>
+                <Link href="/contact" passHref>
+                <Button className="bg-primary hover:bg-primary/90 text-white" >
+                  Contact Me
+                </Button></Link>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </main>
+      <Footer />
+    </PageTransition>
+  );
+};
+
+export default Ventures;
+import React, { useState } from 'react';
+import { ArrowLeft, HeartPulse } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import AnimatedSection from '@/components/AnimatedSection';
+import VentureCard from '@/components/VentureCard';
+import PageTransition from '@/components/PageTransition';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { ventures } from '@/data/venturesData';
+
+type StatusType = 'All' | 'Ongoing' | 'Completed' | 'Early Stage';
+
+const Ventures: React.FC = () => {
+  const [status, setStatus] = useState<StatusType>('All');
+  
+  // Filter ventures by status
+  const filteredVentures = ventures.filter(venture => {
+    if (status === 'All') return true;
+    return venture.status === status;
+  });
+  
+  // Sort ventures by year (newest first)
+  const sortedVentures = [...filteredVentures].sort((a, b) => b.year - a.year);
+
+  return (
+    <PageTransition>
+      <Navbar />
+      <main className="min-h-screen pt-24 pb-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <AnimatedSection className="mb-12">
+            <Button 
+              variant="ghost" 
+              className="mb-6 -ml-3"
+              asChild
+            >
+              <Link to="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Home
+              </Link>
+            </Button>
+            
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+              Projects & Ventures
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl">
+              Some of the Initiatives and Work I have done.
+            </p>
+          </AnimatedSection>
+          
+          {/* Filters */}
+          <AnimatedSection className="mb-12">
+            <div className="bg-secondary/30 p-5 rounded-xl">
+              <h3 className="text-lg font-medium mb-4">Filter by Status</h3>
+              <RadioGroup 
+                value={status} 
+                onValueChange={(value) => setStatus(value as StatusType)}
+                className="flex flex-wrap gap-4"
+              >
+                <div className="flex items-center space-x-2 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full">
+                  <RadioGroupItem value="All" id="all" />
+                  <Label htmlFor="all" className="cursor-pointer">All Projects</Label>
+                </div>
+                
+              </RadioGroup>
+            </div>
+          </AnimatedSection>
+          
+          {/* Ventures Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedVentures.map((venture, index) => (
+              <AnimatedSection key={venture.id} delay={index * 0.05}>
+                <VentureCard {...venture} />
+              </AnimatedSection>
+            ))}
+          </div>
+          
+          {/* Empty state */}
+          {sortedVentures.length === 0 && (
+            <div className="text-center py-10">
+              <p className="text-muted-foreground">No projects match the selected filter.</p>
+            </div>
+          )}
+          
+          {/* Additional information */}
+          <AnimatedSection className="mt-16 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 border border-border">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="md:w-1/4 flex justify-center">
+                <HeartPulse className="h-24 w-24 text-primary/70" />
+              </div>
+              <div className="md:w-3/4">
+                <h3 className="text-2xl font-bold mb-3">Looking for a Partnership?</h3>
+                <p className="text-muted-foreground mb-5">
+                  I'm always looking for opportunities to collaborate on interesting projects. I'd love to discuss potential collaborations.
+                </p>
+                <Link href="/contact" passHref>
+                <Button className="bg-primary hover:bg-primary/90 text-white" >
+                  Contact Me
+                </Button></Link>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </main>
+      <Footer />
+    </PageTransition>
+  );
+};
+
+export default Ventures;
