@@ -56,7 +56,7 @@ const Contact: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start max-w-4xl mx-auto">
             <AnimatedSection className="lg:col-span-3" direction="left">
               <div className="bg-card rounded-xl p-6 shadow-sm border">
-                <form action="https://formsubmit.co/your@email.com" method="POST" className="space-y-6">
+                <form action="https://formsubmit.co/rloyileg@stevens.edu" method="POST" className="space-y-6">
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="name">Full Name</Label>
