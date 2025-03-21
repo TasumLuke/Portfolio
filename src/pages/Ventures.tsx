@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, HeartPulse } from 'lucide-react';
+import { ArrowLeft, HeartPulse, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -25,6 +25,16 @@ const Ventures: React.FC = () => {
   
   // Sort ventures by year (newest first)
   const sortedVentures = [...filteredVentures].sort((a, b) => b.year - a.year);
+
+    // Handle project link click
+  const handleProjectClick = (venture: typeof ventures[0]) => {
+    if (venture.websiteUrl) {
+      window.open(venture.websiteUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      toast.info("Project website coming soon");
+    }
+  };
+
 
   return (
     <PageTransition>
@@ -73,7 +83,19 @@ const Ventures: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sortedVentures.map((venture, index) => (
               <AnimatedSection key={venture.id} delay={index * 0.05}>
-                <VentureCard {...venture} />
+                <div 
+                  onClick={() => handleProjectClick(venture)} 
+                  className={`${venture.websiteUrl ? 'cursor-pointer hover:shadow-lg transition-shadow' : ''}`}
+                >
+                  <div className="relative">
+                    <VentureCard {...venture} />
+                    {venture.websiteUrl && (
+                      <div className="absolute top-3 right-3 bg-white dark:bg-gray-800 p-1 rounded-full shadow-md">
+                        <ExternalLink size={16} className="text-primary" />
+                      </div>
+                    )}
+                  </div>
+                </div>
               </AnimatedSection>
             ))}
           </div>
@@ -97,9 +119,13 @@ const Ventures: React.FC = () => {
                   I'm always looking for opportunities to collaborate on interesting projects. I'd love to discuss potential collaborations.
                 </p>
                 <Link href="/contact" passHref>
-                <Button className="bg-primary hover:bg-primary/90 text-white" >
-                  Contact Me
-                </Button></Link>
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-white"
+                  asChild
+                >
+                  <Link to="/contact">
+                    Contact Me
+                  </Link>
               </div>
             </div>
           </AnimatedSection>
