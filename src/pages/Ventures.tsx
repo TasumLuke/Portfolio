@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, HeartPulse, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
 import AnimatedSection from '@/components/AnimatedSection';
 import VentureCard from '@/components/VentureCard';
 import PageTransition from '@/components/PageTransition';
@@ -26,7 +26,7 @@ const Ventures: React.FC = () => {
   // Sort ventures by year (newest first)
   const sortedVentures = [...filteredVentures].sort((a, b) => b.year - a.year);
 
-    // Handle project link click
+  // Handle project link click
   const handleProjectClick = (venture: typeof ventures[0]) => {
     if (venture.websiteUrl) {
       window.open(venture.websiteUrl, '_blank', 'noopener,noreferrer');
@@ -34,7 +34,6 @@ const Ventures: React.FC = () => {
       toast.info("Project website coming soon");
     }
   };
-
 
   return (
     <PageTransition>
@@ -57,7 +56,7 @@ const Ventures: React.FC = () => {
               Projects & Ventures
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl">
-              Some of the Initiatives and Work I have done.
+              Explore the research initiatives and collaborative projects I've been involved with during my biomedical engineering studies.
             </p>
           </AnimatedSection>
           
@@ -74,7 +73,18 @@ const Ventures: React.FC = () => {
                   <RadioGroupItem value="All" id="all" />
                   <Label htmlFor="all" className="cursor-pointer">All Projects</Label>
                 </div>
-                
+                <div className="flex items-center space-x-2 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full">
+                  <RadioGroupItem value="Ongoing" id="ongoing" />
+                  <Label htmlFor="ongoing" className="cursor-pointer">Ongoing</Label>
+                </div>
+                <div className="flex items-center space-x-2 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full">
+                  <RadioGroupItem value="Completed" id="completed" />
+                  <Label htmlFor="completed" className="cursor-pointer">Completed</Label>
+                </div>
+                <div className="flex items-center space-x-2 bg-white/50 dark:bg-gray-800/50 px-3 py-2 rounded-full">
+                  <RadioGroupItem value="Early Stage" id="early" />
+                  <Label htmlFor="early" className="cursor-pointer">Early Stage</Label>
+                </div>
               </RadioGroup>
             </div>
           </AnimatedSection>
@@ -118,7 +128,6 @@ const Ventures: React.FC = () => {
                 <p className="text-muted-foreground mb-5">
                   I'm always looking for opportunities to collaborate on interesting projects. I'd love to discuss potential collaborations.
                 </p>
-                <Link href="/contact" passHref>
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-white"
                   asChild
@@ -126,6 +135,7 @@ const Ventures: React.FC = () => {
                   <Link to="/contact">
                     Contact Me
                   </Link>
+                </Button>
               </div>
             </div>
           </AnimatedSection>
