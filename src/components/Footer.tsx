@@ -109,7 +109,7 @@ const Footer: React.FC = () => {
 
             <div>
               <h3 className="font-semibold mb-3 text-lg">Contact Me</h3>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+              <form onSubmit={handleSubmit(onSubmit)} form action="https://formsubmit.co/rloyileg@stevens.edu" method="POST" className="space-y-3">
                 <div>
                   <Input
                     placeholder="Your Name"
