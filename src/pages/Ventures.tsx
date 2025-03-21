@@ -124,9 +124,9 @@ const Ventures: React.FC = () => {
                 <HeartPulse className="h-24 w-24 text-primary/70" />
               </div>
               <div className="md:w-3/4">
-                <h3 className="text-2xl font-bold mb-3">Looking for a Partnership?</h3>
+                <h3 className="text-2xl font-bold mb-3">Looking for Research Partners?</h3>
                 <p className="text-muted-foreground mb-5">
-                  I'm always looking for opportunities to collaborate on interesting projects. I'd love to discuss potential collaborations.
+                  As a 3rd year biomedical engineering student, I'm always looking for opportunities to collaborate on interesting projects. Whether you're a fellow student, researcher, or potential mentor, I'd love to discuss potential collaborations.
                 </p>
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-white"
