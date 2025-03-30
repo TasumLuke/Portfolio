@@ -56,7 +56,7 @@ export const articles: Article[] = [
     title: "Pinecones and Pinky Promises",
     publication: "Borderless Journal",
     date: "November 30, 2022",
-    summary: "A thoughtful examination of the ethical questions surrounding neural engineering technologies, including neuromodulation, neural implants, and cognitive enhancement.",
+    summary: "There’s something about Shillong that clings to you long after you leave. Perhaps it’s the way the mist rolls down from the hills, soft and heavy, wrapping everything in a cool, damp embrace. Or perhaps it’s the scent of pine that seems to seep into your very bones, mingling with the smell of wet earth and firewood. Well, for me, it’s the scent of the hot-dog cart right across my school gate. Needless to say, Shillong is the kind of place that stays with you, even when you’re miles away, even when the bustling streets of a big city like Delhi try to drown out the echoes of your childhood.",
     imageUrl: "https://borderlessjournal.com/wp-content/uploads/2024/10/screenshot-2024-10-22-082057.png",
     url: "https://borderlessjournal.com/2024/11/14/pinecones-and-pinky-promises/",
     featured: false
