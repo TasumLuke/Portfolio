@@ -10,7 +10,7 @@ const AboutSection: React.FC = () => {
           <AnimatedSection direction="left" className="order-2 lg:order-1">
             <h2 className="section-title">About Me</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-            <strong>Hello! No Aidun? </strong> <i>&#40;How are You?&#41;</i> I am Luke Rimmo Loyi Lego, a pre-med student and biomedical engineering major at Stevens Institute of Technology in New Jersey. I am honored to have been recognized as an NTSE Scholar, one of India's most prestigious academic awards.
+            <strong>Hello!I am Luke Rimmo Loyi Lego, a pre-med student and biomedical engineering major at Stevens Institute of Technology in New Jersey. I am honored to have been recognized as an NTSE Scholar, one of India's most prestigious academic awards.
             </p>
             
             <p className="text-muted-foreground mb-8 leading-relaxed">
